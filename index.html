@@ -3,27 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>If You Laugh, You Go to Hell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #000; margin: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; }
-        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background: #000; z-index: 100; }
-        #overlay img { width: 100%; height: auto; }
-        #btn { position: fixed; bottom: 50px; width: 70%; padding: 20px; border-radius: 50px; border: none; background: #007aff; color: #fff; font-weight: bold; font-size: 18px; z-index: 200; cursor: pointer; text-transform: uppercase; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header {
+            position: absolute;
+            top: 40px;
+            text-align: center;
+            z-index: 50;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ff006e 0%, #ffbe0b 50%, #3a86ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .progress {
+            position: absolute;
+            top: 140px;
+            font-size: 0.9em;
+            color: #b0b0b0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #overlay.active {
+            opacity: 1;
+        }
+
+        #overlay img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            animation: zoomIn 0.4s ease-out;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(255, 0, 110, 0.3);
+        }
+
+        .button-container {
+            position: fixed;
+            bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            z-index: 200;
+        }
+
+        #btn {
+            padding: 16px 50px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(135deg, #ff006e 0%, #ffbe0b 100%);
+            color: #000;
+            font-weight: 700;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4);
+            min-width: 240px;
+        }
+
+        #btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 0, 110, 0.6);
+        }
+
+        #btn:active {
+            transform: translateY(-1px);
+        }
+
+        .info {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.8em;
+            color: #808080;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            #btn {
+                padding: 14px 40px;
+                font-size: 0.9em;
+                min-width: 200px;
+            }
+
+            #overlay img {
+                width: 95%;
+                height: 85%;
+            }
+        }
     </style>
 </head>
 <body>
 
-<div id="overlay">
-    <img id="cursed-img" src="" alt="">
-</div>
+<div class="container">
+    <div class="header">
+        <h1>😂 If You Laugh... 😈</h1>
+        <div class="progress"><span id="counter">0</span> / 8</div>
+    </div>
 
-<button id="btn">NEXT PHOTO</button>
+    <div id="overlay">
+        <img id="cursed-img" src="" alt="">
+    </div>
+
+    <div class="button-container">
+        <button id="btn">View Photos</button>
+        <div class="info">🖱️ Click the button to proceed</div>
+    </div>
+</div>
 
 <script>
     const btn = document.getElementById('btn');
     const overlay = document.getElementById('overlay');
     const cursedImg = document.getElementById('cursed-img');
+    const counter = document.getElementById('counter');
 
-    // Consolidated to 8 images since Water and Ham are the same
     const scenarios = [
         { img: "eating.png" },
         { img: "pasta.png" },
@@ -45,13 +220,25 @@
 
         cursedImg.src = scenarios[step].img;
         overlay.style.display = 'flex';
-        btn.style.display = 'none';
+        overlay.classList.remove('active');
+        btn.disabled = true;
+        
+        setTimeout(() => {
+            overlay.classList.add('active');
+        }, 10);
 
         setTimeout(() => { 
-            overlay.style.display = 'none'; 
-            btn.style.display = 'block';
-            step++;
-            if (step === scenarios.length) btn.innerText = "RESTART";
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                btn.disabled = false;
+                step++;
+                counter.innerText = step;
+                if (step === scenarios.length) {
+                    btn.innerText = "RESTART";
+                    btn.style.background = 'linear-gradient(135deg, #3a86ff 0%, #3a86ff 100%)';
+                }
+            }, 300);
         }, 7555);
     });
 </script>
