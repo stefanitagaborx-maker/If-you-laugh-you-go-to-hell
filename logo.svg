@@ -1,0 +1,42 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="flameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff006e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ffbe0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff4500;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="devilGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b0000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff0000;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#flameGradient)" stroke="#000" stroke-width="2"/>
+
+  <!-- Devil horns -->
+  <path d="M70 45 Q60 25 75 35 Q85 30 95 45" fill="url(#devilGradient)" stroke="#000" stroke-width="1"/>
+  <path d="M130 45 Q140 25 125 35 Q115 30 105 45" fill="url(#devilGradient)" stroke="#000" stroke-width="1"/>
+
+  <!-- Devil face -->
+  <circle cx="100" cy="85" r="25" fill="url(#devilGradient)" stroke="#000" stroke-width="1"/>
+
+  <!-- Eyes -->
+  <circle cx="92" cy="78" r="3" fill="#fff"/>
+  <circle cx="108" cy="78" r="3" fill="#fff"/>
+  <circle cx="92" cy="78" r="1.5" fill="#000"/>
+  <circle cx="108" cy="78" r="1.5" fill="#000"/>
+
+  <!-- Evil smile -->
+  <path d="M88 95 Q100 105 112 95" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Flames around the edge -->
+  <path d="M20 100 Q30 80 40 100 Q30 120 20 100" fill="#ff4500" opacity="0.8"/>
+  <path d="M160 100 Q170 80 180 100 Q170 120 160 100" fill="#ff4500" opacity="0.8"/>
+  <path d="M100 20 Q120 30 100 40 Q80 30 100 20" fill="#ff4500" opacity="0.8"/>
+  <path d="M100 180 Q120 170 100 160 Q80 170 100 180" fill="#ff4500" opacity="0.8"/>
+
+  <!-- Text -->
+  <text x="100" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">IF YOU LAUGH</text>
+  <text x="100" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">YOU GO TO HELL</text>
+</svg>

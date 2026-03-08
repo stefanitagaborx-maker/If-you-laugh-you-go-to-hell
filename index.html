@@ -36,12 +36,16 @@
             justify-content: center;
         }
 
-        .header {
-            position: absolute;
-            top: 40px;
-            text-align: center;
-            z-index: 50;
+        .logo-container {
+            margin-bottom: 15px;
             animation: slideDown 0.6s ease-out;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 110, 0.5));
+            animation: pulse 2s infinite;
         }
 
         .header h1 {
@@ -146,20 +150,117 @@
             }
         }
 
-        @keyframes zoomIn {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: scale(0.95);
+                transform: translateX(-50%) translateY(20px);
             }
             to {
                 opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
                 transform: scale(1);
             }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .social-share {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .social-share p {
+            font-size: 0.9em;
+            color: #b0b0b0;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            font-size: 0.8em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .social-btn span {
+            font-size: 1.2em;
+        }
+
+        .twitter {
+            background: #1da1f2;
+            color: white;
+        }
+
+        .twitter:hover {
+            background: #0d95e8;
+            transform: translateY(-2px);
+        }
+
+        .facebook {
+            background: #1877f2;
+            color: white;
+        }
+
+        .facebook:hover {
+            background: #166fe5;
+            transform: translateY(-2px);
+        }
+
+        .whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .whatsapp:hover {
+            background: #128c7e;
+            transform: translateY(-2px);
+        }
+
+        .copy-link {
+            background: linear-gradient(135deg, #ff006e 0%, #ffbe0b 100%);
+            color: #000;
+        }
+
+        .copy-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 110, 0.4);
         }
 
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8em;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
             }
 
             #btn {
@@ -172,6 +273,19 @@
                 width: 95%;
                 height: 85%;
             }
+
+            .social-buttons {
+                gap: 8px;
+            }
+
+            .social-btn {
+                padding: 6px 12px;
+                font-size: 0.7em;
+            }
+
+            .social-btn span {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
@@ -179,6 +293,9 @@
 
 <div class="container">
     <div class="header">
+        <div class="logo-container">
+            <img src="logo.svg" alt="If You Laugh You Go to Hell Logo" class="logo">
+        </div>
         <h1>😂 If You Laugh... 😈</h1>
         <div class="progress"><span id="counter">0</span> / 8</div>
     </div>
@@ -190,6 +307,24 @@
     <div class="button-container">
         <button id="btn">View Photos</button>
         <div class="info">🖱️ Click the button to proceed</div>
+    </div>
+
+    <div class="social-share">
+        <p>Share this cursed experience:</p>
+        <div class="social-buttons">
+            <button class="social-btn twitter" onclick="shareOnTwitter()">
+                <span>🐦</span> Twitter
+            </button>
+            <button class="social-btn facebook" onclick="shareOnFacebook()">
+                <span>📘</span> Facebook
+            </button>
+            <button class="social-btn whatsapp" onclick="shareOnWhatsApp()">
+                <span>💬</span> WhatsApp
+            </button>
+            <button class="social-btn copy-link" onclick="copyLink()">
+                <span>🔗</span> Copy Link
+            </button>
+        </div>
     </div>
 </div>
 
@@ -241,6 +376,39 @@
             }, 300);
         }, 7555);
     });
+
+    // Social media sharing functions
+    function shareOnTwitter() {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent("Just experienced the most cursed photos! If you laugh, you go to hell! 😂😈 #CursedPhotos");
+        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+    }
+
+    function shareOnFacebook() {
+        const url = encodeURIComponent(window.location.href);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    }
+
+    function shareOnWhatsApp() {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent("Check out these cursed photos! If you laugh, you go to hell! 😂😈 ");
+        window.open(`https://wa.me/?text=${text}${url}`, '_blank');
+    }
+
+    function copyLink() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            // Show temporary feedback
+            const btn = event.target.closest('.social-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span>✅</span> Copied!';
+            btn.style.background = '#4CAF50';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 2000);
+        });
+    }
 </script>
 </body>
 </html>
